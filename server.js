@@ -1,15 +1,22 @@
 require("dotenv").config();
-import { ApolloServer } from 'apollo-server';
-import schema from './schema';
+import express from "express";
+import { ApolloServer } from "apollo-server-express";
+import { typeDefs, resolvers } from './schema';
 
-const server = new ApolloServer({
-    schema
-});
+const PORT = process.env.PORT;
 
+const startServer = async () => {
+    const server = new ApolloServer({
+        typeDefs, resolvers,
+    });
 
-const PORT = process.env.PORT
+    await server.start();
+    const app = express();
 
-// The `listen` method launches a web server.
-server.listen(PORT).then(({ }) => {
-    console.log(`🚀  Server ready at http://localhost:${PORT}`);
-});
+    server.applyMiddleware({ app });
+
+    await new Promise((func) => app.listen({ port: PORT }, () => {
+        console.log(`🚀 Server: http://localhost:${PORT}${server.graphqlPath}`);
+    }));
+}
+startServer();
