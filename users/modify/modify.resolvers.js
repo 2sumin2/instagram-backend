@@ -19,15 +19,18 @@ export default {
                         error: e,
                     };
                 }
-                const existingName = await client.user.findFirst({
-                    where: { username }
-                });
-                if (existingName) {
-                    return {
-                        ok: false,
-                        error: "이미 존재하는 이름입니다.",
-                    };
+                if (username) {
+                    const existingName = await client.user.findFirst({
+                        where: { username }
+                    });
+                    if (existingName) {
+                        return {
+                            ok: false,
+                            error: "이미 존재하는 이름입니다.",
+                        };
+                    }
                 }
+
                 await client.user.update({
                     where: { email },
                     data: {
