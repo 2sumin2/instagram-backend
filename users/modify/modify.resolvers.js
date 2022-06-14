@@ -8,6 +8,8 @@ export default {
             email,
             statement,
             password,
+            intro,
+            website
         }) => {
             try {
                 const existingUser = await client.user.findFirst({
@@ -36,8 +38,11 @@ export default {
                     data: {
                         username,
                         statement,
+                        intro,
+                        website
                     },
                 });
+
                 return {
                     ok: true,
                 };

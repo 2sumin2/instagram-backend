@@ -11,6 +11,8 @@ export default gql`
             email: String!
             statement: String
             password: String
+            intro: String
+            website: String
         ): modifyResult!
     }
 `;

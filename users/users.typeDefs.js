@@ -6,6 +6,8 @@ export default gql`
         email: String!
         username: String!
         statement: String!
+        intro: String
+        website: String
         createAt: String!
         updateAt:String!
     }

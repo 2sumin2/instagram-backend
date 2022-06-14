@@ -16,6 +16,8 @@ model User {
   email     String   @unique
   statement String
   password  String
+  intro     String?
+  website   String?
   createAt  DateTime @default(now())
   updateAt  DateTime @updatedAt
 }
