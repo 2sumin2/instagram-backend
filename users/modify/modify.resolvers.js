@@ -34,12 +34,18 @@ export default {
                     }
                 }
                 if (password) {
-                    const user = await client.user.findMany({ where: { email } });
+                    const user = await client.user.findFirst({ where: { email } });
+                    if (!user) {
+                        return {
+                            ok: false,
+                            error: "사용자를 찾을 수 없습니다.",
+                        };
+                    }
                     const passwordOk = await bcrypt.compare(password, user.password);
                     if (!passwordOk) {
                         return {
                             ok: false,
-                            error: "잘못된 패스워드입니다.",
+                            error: "현재 비밀번호가 일치하지 않습니다.",
                         };
                     }
                     const uglyPassword = await bcrypt.hash(newpassword, 10);
