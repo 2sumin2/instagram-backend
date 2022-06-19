@@ -8,6 +8,7 @@ export default {
             email,
             statement,
             password,
+            newpassword,
             intro,
             website
         }) => {
@@ -18,7 +19,7 @@ export default {
                 if (!existingUser) {
                     return {
                         ok: false,
-                        error: e,
+                        error: "사용자가 존재하지 않습니다.",
                     };
                 }
                 if (username) {
@@ -32,7 +33,26 @@ export default {
                         };
                     }
                 }
-
+                if (password) {
+                    const user = await client.user.findMany({ where: { email } });
+                    const passwordOk = await bcrypt.compare(password, user.password);
+                    if (!passwordOk) {
+                        return {
+                            ok: false,
+                            error: "잘못된 패스워드입니다.",
+                        };
+                    }
+                    const uglyPassword = await bcrypt.hash(newpassword, 10);
+                    await client.user.update({
+                        where: { email },
+                        data: {
+                            password: uglyPassword,
+                        },
+                    });
+                    return {
+                        ok: true,
+                    };
+                }
                 await client.user.update({
                     where: { email },
                     data: {
@@ -42,7 +62,6 @@ export default {
                         website
                     },
                 });
-
                 return {
                     ok: true,
                 };

@@ -11,6 +11,7 @@ export default gql`
             email: String!
             statement: String
             password: String
+            newpassword: String
             intro: String
             website: String
         ): modifyResult!
