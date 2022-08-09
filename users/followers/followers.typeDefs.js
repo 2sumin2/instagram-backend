@@ -8,7 +8,7 @@ export default gql`
     totalFollowers: Int
   }
   type Query {
-    Followers(
+    followers(
         username: String!
         ): FollowersResult!
   }
