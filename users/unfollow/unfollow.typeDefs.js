@@ -6,6 +6,9 @@ export default gql`
         error:String
     }
   type Mutation {
-    unfollow(username: String!, id: Int!): UnFollowResult!
+    unfollow(
+      myname: String!, 
+      othername: String!
+      ): UnFollowResult!
   }
 `;

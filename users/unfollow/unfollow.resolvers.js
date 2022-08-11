@@ -2,9 +2,9 @@ import client from "../../client";
 
 export default {
     Mutation: {
-        unfollow: (async (_, { username, id }) => {
+        unfollow: (async (_, { myname, othername }) => {
             const ok = await client.user.findUnique({
-                where: { username },
+                where: { username: othername },
             });
             if (!ok) {
                 return {
@@ -14,12 +14,12 @@ export default {
             }
             await client.user.update({
                 where: {
-                    id
+                    username: myname
                 },
                 data: {
                     following: {
                         disconnect: {
-                            username,
+                            username: othername,
                         },
                     },
                 },
