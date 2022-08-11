@@ -8,7 +8,7 @@ export default gql`
     totalFollowing: Int
   }
   type Query {
-    following(
+    seeFollowing(
         username: String!): SeeFollowingResult!
   }
 `;

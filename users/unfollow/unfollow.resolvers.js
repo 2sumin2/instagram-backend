@@ -2,21 +2,23 @@ import client from "../../client";
 
 export default {
     Mutation: {
-        followUser: (async (_, { username, id }) => {
-            const ok = await client.user.findUnique({ where: { username } });
+        unfollow: (async (_, { username, id }) => {
+            const ok = await client.user.findUnique({
+                where: { username },
+            });
             if (!ok) {
                 return {
                     ok: false,
-                    error: "That user does not exist.",
+                    error: "Can't unfollow user.",
                 };
             }
             await client.user.update({
                 where: {
-                    id,
+                    id
                 },
                 data: {
                     following: {
-                        connect: {
+                        disconnect: {
                             username,
                         },
                     },
@@ -25,6 +27,7 @@ export default {
             return {
                 ok: true,
             };
-        }),
+        }
+        ),
     },
 };

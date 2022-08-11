@@ -2,7 +2,7 @@ import client from "../../client";
 
 export default {
     Query: {
-        followers: async (_, { username }) => {
+        seeFollowing: async (_, { username }) => {
             const ok = await client.user.findUnique({
                 where: { username },
                 select: { id: true },
@@ -13,20 +13,19 @@ export default {
                     error: "User not found",
                 };
             }
-            const followers = await client.user
-                .findUnique({
-                    where: { username }
-                })
-                .followers({});;
-            const totalFollowers = await client.user.count({
+
+            const following = await client.user
+                .findUnique({ where: { username } })
+                .following({});
+            const totalFollowing = await client.user.count({
                 where: {
-                    following: { some: { username } }
+                    followers: { some: { username } }
                 },
             });
             return {
                 ok: true,
-                followers,
-                totalFollowers
+                following,
+                totalFollowing
             };
         },
     },

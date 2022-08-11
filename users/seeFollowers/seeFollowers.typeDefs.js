@@ -1,15 +1,15 @@
 import { gql } from "apollo-server";
 
 export default gql`
-  type FollowersResult {
+  type SeeFollowersResult {
     ok: Boolean!
     error: String
     followers: [User]
     totalFollowers: Int
   }
   type Query {
-    followers(
+    seeFollowers(
         username: String!
-        ): FollowersResult!
+        ): SeeFollowersResult!
   }
 `;
