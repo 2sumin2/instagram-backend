@@ -10,7 +10,8 @@ export default {
             password,
             newpassword,
             intro,
-            website
+            website,
+            image
         }) => {
             try {
                 const existingUser = await client.user.findFirst({
