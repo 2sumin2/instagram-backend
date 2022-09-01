@@ -12,7 +12,6 @@ const startServer = async () => {
 
     await server.start();
     const app = express();
-
     server.applyMiddleware({ app });
 
     await new Promise((func) => app.listen({ port: PORT }, () => {
@@ -20,3 +19,24 @@ const startServer = async () => {
     }));
 }
 startServer();
+
+
+/*
+
+
+const apollo = new ApolloServer({
+    resolvers,
+    typeDefs,
+});
+const app = express();
+app.use(logger("dev"));
+apollo.applyMiddleware({ app });
+app.use("/static", express.static("uploads"));
+
+const httpServer = http.createServer(app);
+apollo.installSubscriptionHandlers(httpServer);
+
+httpServer.listen(PORT, () => {
+    console.log(`🚀 Server: http://localhost:${PORT}${server.graphqlPath}`);
+});
+*/
