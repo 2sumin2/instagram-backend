@@ -20,8 +20,8 @@ model User {
   website   String?
   image     String?
   post      Post[]
-  followers User[]   @relation("FollowRelation", references: [id])
-  following User[]   @relation("FollowRelation", references: [id])
+  followers User[]   @relation("FollowRelation")
+  following User[]   @relation("FollowRelation")
   createAt  DateTime @default(now())
   updateAt  DateTime @updatedAt
 }
