@@ -9,7 +9,7 @@ export default gql`
   }
   type Query {
     seePosts(
-        userId: Int!
+        userId: Int
         ): SeePostsResult!
   }
 `;

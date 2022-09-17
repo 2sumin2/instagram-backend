@@ -4,31 +4,41 @@ export default {
     Query: {
         seePosts: async (_, { userId }) => {
             try {
-                const ok = await client.user.findUnique({
-                    where: { id: userId },
-                    select: { id: true },
-                });
-                if (!ok) {
+                if (userId) {
+                    const ok = await client.user.findUnique({
+                        where: { id: userId },
+                        select: { id: true },
+                    });
+                    if (!ok) {
+                        return {
+                            ok: false,
+                            error: "User not found",
+                        };
+                    }
+                    const posts = await client.user
+                        .findUnique({
+                            where: { id: userId }
+                        })
+                        .post({});
+                    const totalPosts = await client.post.count({
+                        where: {
+                            userId
+                        }
+                    });
                     return {
-                        ok: false,
-                        error: "User not found",
+                        ok: true,
+                        posts,
+                        totalPosts
+                    };
+                } else {
+                    const posts = await client.post.findMany();
+                    const totalPosts = await client.post.count({});
+                    return {
+                        ok: true,
+                        posts,
+                        totalPosts
                     };
                 }
-                const posts = await client.user
-                    .findUnique({
-                        where: { id: userId }
-                    })
-                    .post({});;
-                const totalPosts = await client.post.count({
-                    where: {
-                        userId
-                    }
-                });
-                return {
-                    ok: true,
-                    posts,
-                    totalPosts
-                };
             } catch (e) {
                 return {
                     ok: false,
