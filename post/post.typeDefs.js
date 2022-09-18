@@ -5,6 +5,7 @@ export default gql`
         id: Int!
         user: User!
         userId: Int!
+        username: String!
         file: String!
         caption: String
         createAt: String!

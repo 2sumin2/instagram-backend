@@ -33,7 +33,7 @@ export default {
                 } else {
                     const posts = await client.post.findMany({
                         orderBy: {
-                            createdAt: 'asc'
+                            createAt: 'asc'
                         }
                     }
                     );

@@ -27,11 +27,12 @@ model User {
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
-  file      String
-  caption   String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id       Int      @id @default(autoincrement())
+  user     User     @relation(fields: [userId], references: [id])
+  userId   Int
+  username String
+  file     String
+  caption  String?
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
 }

@@ -21,6 +21,7 @@ export default {
                 await client.post.create({
                     data: {
                         userId,
+                        username: existingUser.username,
                         file,
                         caption,
                     },

@@ -17,7 +17,7 @@ export default {
                 .findUnique({
                     where: { username }
                 })
-                .followers({});;
+                .followers({});
             const totalFollowers = await client.user.count({
                 where: {
                     following: { some: { username } }
