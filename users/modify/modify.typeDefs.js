@@ -8,7 +8,7 @@ export default gql`
     type Mutation {
         modify(
             username: String
-            email: String!
+            id: Int!
             statement: String
             password: String
             newpassword: String

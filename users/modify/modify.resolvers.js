@@ -5,7 +5,7 @@ export default {
     Mutation: {
         modify: async (_, {
             username,
-            email,
+            id,
             statement,
             password,
             newpassword,
@@ -15,7 +15,7 @@ export default {
         }) => {
             try {
                 const existingUser = await client.user.findFirst({
-                    where: { email }
+                    where: { id }
                 });
                 if (!existingUser) {
                     return {
@@ -33,9 +33,14 @@ export default {
                             error: "이미 존재하는 이름입니다.",
                         };
                     }
+                    await client.post.updateMany({
+                        where: { userId: id },
+                        data: { username },
+                    });
                 }
+
                 if (password) {
-                    const user = await client.user.findFirst({ where: { email } });
+                    const user = await client.user.findFirst({ where: { id } });
                     if (!user) {
                         return {
                             ok: false,
@@ -51,7 +56,7 @@ export default {
                     }
                     const uglyPassword = await bcrypt.hash(newpassword, 10);
                     await client.user.update({
-                        where: { email },
+                        where: { id },
                         data: {
                             password: uglyPassword,
                         },
@@ -61,7 +66,7 @@ export default {
                     };
                 }
                 await client.user.update({
-                    where: { email },
+                    where: { id },
                     data: {
                         username,
                         statement,
