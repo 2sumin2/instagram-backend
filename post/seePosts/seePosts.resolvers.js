@@ -31,7 +31,12 @@ export default {
                         totalPosts
                     };
                 } else {
-                    const posts = await client.post.findMany();
+                    const posts = await client.post.findMany({
+                        orderBy: {
+                            createdAt: 'asc'
+                        }
+                    }
+                    );
                     const totalPosts = await client.post.count({});
                     return {
                         ok: true,
