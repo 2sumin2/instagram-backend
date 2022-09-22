@@ -6,10 +6,12 @@ export default gql`
     error: String
     likes: [User]
     totalLikes: Int
+    myLike:Boolean
   }
   type Query {
     seeLikes(
-        postId: Int!
+        postId: Int!,
+        userId: Int
         ): SeeLikesResult!
   }
 `;
